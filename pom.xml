@@ -64,6 +64,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>counselor_Capstone1.jar</finalName>
 	</build>
 
 </project>
