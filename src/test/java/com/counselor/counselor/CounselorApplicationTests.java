@@ -1,24 +1,22 @@
 package com.counselor.counselor;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import static org.mockito.Mockito.when;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 @WebMvcTest
 public class CounselorApplicationTests {
     @Autowired
@@ -36,24 +34,32 @@ public class CounselorApplicationTests {
         counselors.add(counselor2);
         counselors.add(counselor3);
         when(counselorRepo.findAll()).thenReturn(counselors);
-        mockMvc.perform(get("/counselor")
+        mockMvc.perform(get("/counselor/get")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
     @Test
     public void postAllCounselors() throws Exception {
         Counselor counselor1 = new Counselor(1L, "FCPS", new Date(), new Date(), "5 years Experience");
-        Counselor counselor2 = new Counselor(2L, "FCPS", new Date(), new Date(), "5 years Experience");
-        Counselor counselor3 = new Counselor(3L, "FCPS", new Date(), new Date(), "5 years Experience");
-        // List<Counselor> counselors = new ArrayList<>();
-        // counselors.add(counselor1);
-        // counselors.add(counselor2);
-        // counselors.add(counselor3);
-            // when(counselorRepo.save(counselors)).thenReturn(counselors);
-            // when(counselorRepo.save(Mockito.any(Counselor.class))).thenReturn(counselors);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBody = objectMapper.writeValueAsString(counselor1);
         mockMvc.perform(post("/counselor/post")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsoncounselor.write(counselor1).getJson()))
+                .content(requestBody))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void DeleteCounselors() throws Exception {
+        mockMvc.perform(delete("/counselor/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void UpdateCounselors() throws Exception {
+        Counselor counselor1 = new Counselor(1L, "FCPS", new Date(), new Date(), "9 years Experience");
+        when(counselorRepo.findById(1L)).thenReturn(Optional.of(counselor1));
+        mockMvc.perform(put("/counselor/52")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }
