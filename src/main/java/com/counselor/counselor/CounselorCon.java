@@ -22,7 +22,7 @@ public class CounselorCon {
     @Autowired
     private CounselorRepo counselorRepo;
 
-    @GetMapping("")
+    @GetMapping("/get")
     public List<Counselor> getCounselors(){
         return this.counselorRepo.findAll();
     }
@@ -31,16 +31,19 @@ public class CounselorCon {
     public void postCounselors(@RequestBody Counselor counselor){
         this.counselorRepo.save(counselor);
     }
-
     @PutMapping("/{id}")
-    public void updateCounselor(@RequestBody Counselor counselor){
-        this.counselorRepo.save(counselor);
-
+    public void updateCounselor(@PathVariable Long id, @RequestBody Counselor newCounselor) {
+        Counselor existingCounselor = counselorRepo.findById(id).orElse(null);
+        if (existingCounselor != null) {
+            existingCounselor.setSpecialization(newCounselor.getSpecialization());
+            existingCounselor.setDescription(newCounselor.getDescription());
+            counselorRepo.save(existingCounselor);
+        }
     }
-
-    @DeleteMapping("/{counselorId}")
-    public void deleteCounselor(@PathVariable Long counselorId){
-        this.counselorRepo.deleteById(counselorId);
+    
+    @DeleteMapping("/{id}")
+    public void deleteCounselor(@PathVariable Long id){
+        this.counselorRepo.deleteById(id);
         
     }
 }
