@@ -7,9 +7,8 @@ import java.sql.Date;
 
 import org.junit.jupiter.api.Test;
 
-
 public class CounselorTests {
-      // @Id
+    // @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
     // private Long counselorId;
     // private String specialization;
@@ -42,6 +41,4 @@ public class CounselorTests {
         counselor.setCreated(date);
         assertEquals(date, counselor.getCreated());
     }
-
-    
 }

@@ -33,6 +33,8 @@ public class CounselorCon {
             counselorRepo.save(existingCounselor);
         }
     }
+
+    
     @DeleteMapping("/{id}")
     public void deleteCounselor(@PathVariable Long id){
         this.counselorRepo.deleteById(id);
