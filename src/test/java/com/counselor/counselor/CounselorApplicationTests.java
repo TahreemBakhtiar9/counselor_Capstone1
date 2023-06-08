@@ -78,7 +78,7 @@ public class CounselorApplicationTests {
 	public void UpdateCounselors() throws Exception {
 		Counselor counselor1 = new Counselor(1L, "FCPS", new Date(), new Date(), "9 years Experience");
 		when(counselorRepo.findById(1L)).thenReturn(Optional.of(counselor1));
-		mockMvc.perform(put("/counselor/52")
+		mockMvc.perform(put("/counselor/152")
 				.contentType(MediaType.APPLICATION_JSON))
 				
 				.andExpect(status().isOk());
