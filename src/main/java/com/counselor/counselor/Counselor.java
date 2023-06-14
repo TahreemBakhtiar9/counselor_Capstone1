@@ -18,11 +18,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="CTable")
+@Table(name="counselor")
 public class Counselor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long counselorId;
+    private Long id;
     private String specialization;
     private Date created;
     private Date update;
