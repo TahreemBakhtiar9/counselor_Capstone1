@@ -20,8 +20,8 @@ public class CounselorTests {
     void testingId(){
         Counselor counselor= new Counselor();
          long counselorId = 4L;
-         counselor.setCounselorId(counselorId);
-         assertEquals(counselorId, counselor.getCounselorId());
+         counselor.setId(counselorId);
+         assertEquals(counselorId, counselor.getId());
 
     }
 
