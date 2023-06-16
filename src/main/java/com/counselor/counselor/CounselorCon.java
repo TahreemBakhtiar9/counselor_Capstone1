@@ -1,5 +1,7 @@
 package com.counselor.counselor;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,18 @@ public class CounselorCon {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getCounselorById(@PathVariable Long id) {
+        Optional<Counselor> counselor = counselorRepo.findById(id);
+        
+        if (counselor.isPresent()) {
+            return ResponseEntity.ok(counselor.get());
+        } else {
+            String errorMessage = "This id does not Exist";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    }
+
     @PostMapping("/post")
     public ResponseEntity<?> postCounselors(@RequestBody Counselor counselor){
         if (counselor != null) {
@@ -34,6 +48,7 @@ public class CounselorCon {
         }
         return ResponseEntity.ok("Error Data is not posted");
     }
+    
     @PostMapping("/{id}")
     public ResponseEntity<?> updateCounselor(@PathVariable Long id, @RequestBody Counselor newCounselor) {
         Counselor existingCounselor = counselorRepo.findById(id).orElse(null);
