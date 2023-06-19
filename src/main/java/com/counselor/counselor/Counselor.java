@@ -21,8 +21,9 @@ import lombok.Setter;
 @Table(name="counslor")
 public class Counselor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) 
     private Long id;
+    private Long userid;
     private String specialization;
     private Date created;
     private Date update;
