@@ -23,7 +23,7 @@ public class Counselor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) 
     private Long id;
-    private Long userid;
+    private Long userId;
     private String specialization;
     private Date created;
     private Date update;

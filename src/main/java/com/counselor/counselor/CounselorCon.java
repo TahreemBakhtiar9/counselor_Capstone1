@@ -29,9 +29,9 @@ public class CounselorCon {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> getCounselorById(@PathVariable Long id) {
-        Optional<Counselor> counselor = counselorRepo.findById(id);
+    @GetMapping("/get/{userId}")
+    public ResponseEntity<?> getCounselorById(@PathVariable Long userId) {
+        Optional<Counselor> counselor = counselorRepo.findByUserId(userId);
         
         if (counselor.isPresent()) {
             return ResponseEntity.ok(counselor.get());
