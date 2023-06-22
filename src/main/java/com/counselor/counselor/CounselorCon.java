@@ -49,15 +49,13 @@ public class CounselorCon {
         return ResponseEntity.ok("Error Data is not posted");
     }
     
-    @PostMapping("/{id}")
-    public ResponseEntity<?> updateCounselor(@PathVariable Long id, @RequestBody Counselor newCounselor) {
-        Counselor existingCounselor = counselorRepo.findById(id).orElse(null);
-        if (existingCounselor != null) {
-            existingCounselor.setSpecialization(newCounselor.getSpecialization());
-            existingCounselor.setDescription(newCounselor.getDescription());
-            return ResponseEntity.ok(counselorRepo.save(existingCounselor));
-        }
-            return ResponseEntity.ok("Unable to update data");   
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCounselor( @RequestBody Counselor newCounselor) {
+        
+            newCounselor.setSpecialization(newCounselor.getSpecialization());
+            newCounselor.setDescription(newCounselor.getDescription());
+            return ResponseEntity.ok(counselorRepo.save(newCounselor));
+      
     }
 
     @DeleteMapping("/{id}")
