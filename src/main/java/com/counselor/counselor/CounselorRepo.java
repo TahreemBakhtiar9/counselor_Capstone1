@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface CounselorRepo extends JpaRepository<Counselor, Long>{
 
     Optional<Counselor> findByUserId(Long userId);
-
-    // Optional<Counselor> findByuserId(Long userid);
     
 }
