@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/counselor")
@@ -66,6 +68,10 @@ public class CounselorCon {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Counselor not found");
         }
+    }
+    @GetMapping("/{id}")
+    public Optional<Counselor> getbyid(@PathVariable Long id){
+          return counselorRepo.findById(id);
     }
     
 }
