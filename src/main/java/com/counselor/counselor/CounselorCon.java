@@ -42,7 +42,18 @@ public class CounselorCon {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
-
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getCounselorId(@PathVariable Long id) {
+        Optional<Counselor> counselor = counselorRepo.findById(id);
+        
+        if (counselor.isPresent()) {
+            return ResponseEntity.ok(counselor.get());
+        } else {
+            String errorMessage = "This id does not Exist";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    
+    }
     @PostMapping("/post")
     public ResponseEntity<?> postCounselors(@RequestBody Counselor counselor){
         if (counselor != null) {
