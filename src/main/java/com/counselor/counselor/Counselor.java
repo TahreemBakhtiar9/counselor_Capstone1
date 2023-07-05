@@ -27,6 +27,7 @@ public class Counselor {
     private String specialization;
     private Date created;
     private Date update;
+    @Column(columnDefinition="TEXT")
     private String description;
 
 }
