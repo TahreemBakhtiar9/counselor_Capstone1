@@ -8,8 +8,6 @@ import java.sql.Date;
 import org.junit.jupiter.api.Test;
 
 public class CounselorTests {
-    
-
     // @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
     // private Long counselorId;
@@ -22,8 +20,8 @@ public class CounselorTests {
     void testingId(){
         Counselor counselor= new Counselor();
          long counselorId = 4L;
-         counselor.setCounselorId(counselorId);
-         assertEquals(counselorId, counselor.getCounselorId());
+         counselor.setId(counselorId);
+         assertEquals(counselorId, counselor.getId());
 
     }
 
@@ -43,7 +41,4 @@ public class CounselorTests {
         counselor.setCreated(date);
         assertEquals(date, counselor.getCreated());
     }
-
-  
-
 }

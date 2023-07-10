@@ -1,5 +1,6 @@
 package com.counselor.counselor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -17,14 +18,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="CTable")
+@Table(name="counslor")
 public class Counselor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long counselorId;
+    @GeneratedValue(strategy = GenerationType.AUTO) 
+    private Long id;
+    private Long userId;
     private String specialization;
     private Date created;
     private Date update;
+    @Column(columnDefinition="TEXT")
     private String description;
 
 }

@@ -1,49 +1,76 @@
 package com.counselor.counselor;
-
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.persistence.Id;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/counselor")
-
 public class CounselorCon {
     @Autowired
     private CounselorRepo counselorRepo;
-
     @GetMapping("/get")
-    public List<Counselor> getCounselors(){
-        return this.counselorRepo.findAll();
-    }
-
-    @PostMapping("/post")
-    public void postCounselors(@RequestBody Counselor counselor){
-        this.counselorRepo.save(counselor);
-    }
-    @PutMapping("/{id}")
-    public void updateCounselor(@PathVariable Long id, @RequestBody Counselor newCounselor) {
-        Counselor existingCounselor = counselorRepo.findById(id).orElse(null);
-        if (existingCounselor != null) {
-            existingCounselor.setSpecialization(newCounselor.getSpecialization());
-            existingCounselor.setDescription(newCounselor.getDescription());
-            counselorRepo.save(existingCounselor);
+    public ResponseEntity<?> getCounselors() {
+        List<Counselor> counselors = counselorRepo.findAll();
+        if (!counselors.isEmpty()) {
+            return ResponseEntity.ok(counselors);
+        } else {
+            String errorMessage = "Unable to get Counselor data";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
-    
-    @DeleteMapping("/{id}")
-    public void deleteCounselor(@PathVariable Long id){
-        this.counselorRepo.deleteById(id);
+    @GetMapping("/get/{userId}")
+    public ResponseEntity<?> getCounselorById(@PathVariable Long userId) {
+        Optional<Counselor> counselor = counselorRepo.findByUserId(userId);
         
+        if (counselor.isPresent()) {
+            return ResponseEntity.ok(counselor.get());
+        } else {
+            String errorMessage = "This id does not Exist";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
     }
+    @PostMapping("/post")
+    public ResponseEntity<?> postCounselors(@RequestBody Counselor counselor){
+        if (counselor != null) {
+            return ResponseEntity.ok(counselorRepo.save(counselor));
+        }
+        return ResponseEntity.ok("Error Data is not posted");
+    }
+    
+    @PostMapping("/update")
+    public ResponseEntity<?> updateCounselor( @RequestBody Counselor newCounselor) {
+        
+            newCounselor.setSpecialization(newCounselor.getSpecialization());
+            newCounselor.setDescription(newCounselor.getDescription());
+            return ResponseEntity.ok(counselorRepo.save(newCounselor));
+      
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCounselor(@PathVariable Long id) {
+        if (counselorRepo.existsById(id)) {
+            counselorRepo.deleteById(id);
+            return ResponseEntity.ok("Data is deleted");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Counselor not found");
+        }
+    }
+    @GetMapping("/{id}")
+    public Optional<Counselor> getbyid(@PathVariable Long id){
+          return counselorRepo.findById(id);
+    }
+    
 }
