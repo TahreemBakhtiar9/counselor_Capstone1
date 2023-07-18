@@ -78,8 +78,8 @@ public class CounselorCon {
           return counselorRepo.findById(id);
     
     }
-    @GetMapping("/get/{id}")
-    public Optional<Counselor> getcounselor(@PathVariable Long id){
-          return counselorRepo.findById(id);
-    }
+    // @GetMapping("/get/{id}")
+    // public Optional<Counselor> getcounselor(@PathVariable Long id){
+    //       return counselorRepo.findById(id);
+    // }
 }
