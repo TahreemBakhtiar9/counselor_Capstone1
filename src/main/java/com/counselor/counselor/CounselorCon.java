@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CounselorCon {
     @Autowired
     private CounselorRepo counselorRepo;
-    @GetMapping("/get")
+    @GetMapping("")
     public ResponseEntity<?> getCounselors() {
         List<Counselor> counselors = counselorRepo.findAll();
         if (!counselors.isEmpty()) {
