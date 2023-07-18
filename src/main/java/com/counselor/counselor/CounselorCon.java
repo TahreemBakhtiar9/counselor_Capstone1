@@ -82,12 +82,4 @@ public class CounselorCon {
     public Optional<Counselor> getcounselor(@PathVariable Long id){
           return counselorRepo.findById(id);
     }
-    //   @PostMapping("/add")
-    // public ResponseEntity<?> addCounselors(@RequestBody Counselor counselor){
-    //     if (counselor != null) {
-    //         return ResponseEntity.ok(counselorRepo.save(counselor));
-    //     }
-    //     return ResponseEntity.ok("Error Data is not posted");
-    
-    // }
 }
