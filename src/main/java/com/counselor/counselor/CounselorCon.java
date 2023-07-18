@@ -30,6 +30,17 @@ public class CounselorCon {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
+
+    @GetMapping("")
+    public ResponseEntity<?> getCou() {
+        List<Counselor> counselors = counselorRepo.findAll();
+        if (!counselors.isEmpty()) {
+            return ResponseEntity.ok(counselors);
+        } else {
+            String errorMessage = "Unable to get Counselor data";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    }
     @GetMapping("/get/{userId}")
     public ResponseEntity<?> getCounselorById(@PathVariable Long userId) {
         Optional<Counselor> counselor = counselorRepo.findByUserId(userId);
