@@ -73,7 +73,7 @@ public class CounselorCon {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Counselor not found");
         }
     }
-    @GetMapping("/{id}")
+    @GetMapping("/gets/{id}")
     public Optional<Counselor> getbyid(@PathVariable Long id){
           return counselorRepo.findById(id);
     
