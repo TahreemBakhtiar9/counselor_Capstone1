@@ -48,7 +48,13 @@ public class CounselorCon {
         }
         return ResponseEntity.ok("Error Data is not posted");
     }
-    
+    @PostMapping("/add")
+    public ResponseEntity<?> addCounselors(@RequestBody Counselor counselor){
+        if (counselor != null) {
+            return ResponseEntity.ok(counselorRepo.save(counselor));
+        }
+        return ResponseEntity.ok("Error Data is not posted");
+    }
     @PostMapping("/update")
     public ResponseEntity<?> updateCounselor( @RequestBody Counselor newCounselor) {
         
