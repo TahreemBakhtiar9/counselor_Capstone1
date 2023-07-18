@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CounselorCon {
     @Autowired
     private CounselorRepo counselorRepo;
-    @GetMapping("")
+    @GetMapping("/get")
     public ResponseEntity<?> getCounselors() {
         List<Counselor> counselors = counselorRepo.findAll();
         if (!counselors.isEmpty()) {
@@ -82,4 +82,12 @@ public class CounselorCon {
     public Optional<Counselor> getcounselor(@PathVariable Long id){
           return counselorRepo.findById(id);
     }
+    //   @PostMapping("/add")
+    // public ResponseEntity<?> addCounselors(@RequestBody Counselor counselor){
+    //     if (counselor != null) {
+    //         return ResponseEntity.ok(counselorRepo.save(counselor));
+    //     }
+    //     return ResponseEntity.ok("Error Data is not posted");
+    
+    // }
 }
