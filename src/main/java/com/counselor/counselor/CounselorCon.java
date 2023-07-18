@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin("*")
 @RestController
@@ -71,6 +70,18 @@ public class CounselorCon {
     @GetMapping("/{id}")
     public Optional<Counselor> getbyid(@PathVariable Long id){
           return counselorRepo.findById(id);
-    }
     
+    }
+    @GetMapping("/get/{id}")
+    public Optional<Counselor> getcounselor(@PathVariable Long id){
+          return counselorRepo.findById(id);
+    }
+      @PostMapping("/add")
+    public ResponseEntity<?> addCounselors(@RequestBody Counselor counselor){
+        if (counselor != null) {
+            return ResponseEntity.ok(counselorRepo.save(counselor));
+        }
+        return ResponseEntity.ok("Error Data is not posted");
+    
+    }
 }

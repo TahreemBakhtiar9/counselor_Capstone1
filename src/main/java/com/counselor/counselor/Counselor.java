@@ -3,6 +3,7 @@ package com.counselor.counselor;
 import java.time.LocalDate;
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Table(name="counslor")
 public class Counselor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) 
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long userId;
     private String specialization;
